@@ -1,3 +1,4 @@
+// test comment
 #!/usr/bin/env groovy
 node {
     stage('Preparation') {
