@@ -94,7 +94,6 @@ def test_update_an_existing_pet_compare_names():
     assert updated_pet.json()["name"] != original_pet
 
 
-
 def test_delete_pet():
     """
     Test: Delete a pet, check status code
@@ -110,7 +109,6 @@ def test_delete_pet_compare_id():
     Test: Delete a pet, check if message is equal to pet id
     method: DELETE
     endpoint: https://petstore.swagger.io/v2/pet/{id}
-    :return:
     """
     original_pet = pet_endpoints.add_new_pet()[1]
     deleted_pet = pet_endpoints.delete_a_pet()
