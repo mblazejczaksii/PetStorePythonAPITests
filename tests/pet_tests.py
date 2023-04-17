@@ -34,16 +34,15 @@ def test_finding_pet():
 
 def test_compare_add_a_new_pet_and_finding_pet_verify_json():
     """
-    Test: Add a new pet to the store, check json
-    method: POST
-    endpoint: https://petstore.swagger.io/v2/pet
+    Test: Compare jsons from add_a_new_pet and finding_pet methods
+    method: POST and GET
+    post_endpoint: https://petstore.swagger.io/v2/pet
+    get_endpoint: https://petstore.swagger.io/v2/pet/{id}
     """
-    response1 = pet_endpoints.add_new_pet()[3]
-    response2 = pet_endpoints.find_pet_by_id()
+    stored_pet_json = pet_endpoints.my_stored_pet_json
+    pet_by_id_response = pet_endpoints.find_pet_by_id()
 
-    print(response2.json() == response2)
-    print("response1: ", response1.json())
-    print("response2: ", response2)
+    assert stored_pet_json[0] == pet_by_id_response.json()
 
 
 def test_finding_pet_by_status_status_code():
