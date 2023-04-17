@@ -1,4 +1,4 @@
-from endpoints_functions.useful_stuff import Pet
+from endpoints_functions.helpers import Pet
 import names
 import random
 import requests
@@ -11,9 +11,9 @@ status = random.choice(['available', 'pending', 'sold'])
 
 def add_new_pet():
     added_pet = requests.post(url=endpoint, json=pet_to_add)
-    pet_id = added_pet.json()['id']
-    pet_name = added_pet.json()['name']
     pet_json = added_pet.json()
+    pet_id = pet_json['id']
+    pet_name = pet_json['name']
     return added_pet, str(pet_id), pet_name, pet_json
 
 

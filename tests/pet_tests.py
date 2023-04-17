@@ -2,7 +2,7 @@ from http import HTTPStatus
 from endpoints_functions import pet_endpoints
 
 
-def test_add_a_new_pet_status_code():
+def test_add_a_new_pet_verify_status_code():
     """
     Test: Add a new pet to the store, check status code
     method: POST
@@ -12,7 +12,7 @@ def test_add_a_new_pet_status_code():
     assert response.status_code == HTTPStatus.OK
 
 
-def test_add_a_new_pet_header():
+def test_add_a_new_pet_verify_header():
     """
     Test: Add a new pet to the store, check header
     method: POST
@@ -30,6 +30,20 @@ def test_finding_pet():
     """
     response = pet_endpoints.find_pet_by_id()
     assert response.status_code == HTTPStatus.OK
+
+
+def test_compare_add_a_new_pet_and_finding_pet_verify_json():
+    """
+    Test: Add a new pet to the store, check json
+    method: POST
+    endpoint: https://petstore.swagger.io/v2/pet
+    """
+    response1 = pet_endpoints.add_new_pet()[3]
+    response2 = pet_endpoints.find_pet_by_id()
+
+    print(response2.json() == response2)
+    print("response1: ", response1.json())
+    print("response2: ", response2)
 
 
 def test_finding_pet_by_status_status_code():
