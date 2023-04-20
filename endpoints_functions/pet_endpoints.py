@@ -1,13 +1,15 @@
-from endpoints_functions.helpers import Pet
+from endpoints_functions.helpers import Pet, Order
 import names
 import random
 import requests
 
 endpoint = 'https://petstore.swagger.io/v2/pet'
+order_endpoint = 'https://petstore.swagger.io/v2/store/order'
 generated_name = names.get_first_name()
 pet_to_add = Pet(name=generated_name).create_pet()
 status = random.choice(['available', 'pending', 'sold'])
 my_stored_pet_json = []
+created_order = Order().create_an_order()
 
 
 def add_new_pet():
@@ -50,3 +52,35 @@ def delete_a_pet():
     pet_id = add_new_pet()[1]
     deleted_pet = requests.delete(url=endpoint + '/' + pet_id)
     return deleted_pet
+
+
+def order_a_pet():
+    ordered_pet = requests.post(url=order_endpoint, json=created_order)
+    ordered_pet_json = ordered_pet.json()
+    ordered_pet_id = ordered_pet_json['id']
+    return ordered_pet, ordered_pet_json, str(ordered_pet_id)
+
+
+def purchase_order_by_id():
+    order_id = order_a_pet()[2]
+    purchased_order = requests.get(url=order_endpoint + '/' + order_id)
+    purchased_order_json = purchased_order.json()
+    return purchased_order, purchased_order_json
+
+
+def purchase_order_with_invalid_id():
+    order_id = '123456789'
+    order_with_invalid_id = requests.get(url=order_endpoint + '/' + order_id)
+    return order_with_invalid_id
+
+
+def delete_purchase_order_by_id():
+    order_id = order_a_pet()[2]
+    delete_purchased_order = requests.delete(url=order_endpoint + '/' + order_id)
+    return delete_purchased_order
+
+
+def delete_purchase_order_with_invalid_id():
+    order_id = '123456789'
+    delete_purchased_order = requests.delete(url=order_endpoint + '/' + order_id)
+    return delete_purchased_order

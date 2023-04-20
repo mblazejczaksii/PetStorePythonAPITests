@@ -32,6 +32,18 @@ def test_finding_pet():
     assert response.status_code == HTTPStatus.OK
 
 
+def test_compare_stored_pet_json_and_finding_pet_verify_json():
+    """
+    Test: Compare jsons from stored list and finding_pet method
+    method: GET
+    stored_pet_json: variable from pet_endpoints (empty list by default)
+    get_endpoint: https://petstore.swagger.io/v2/pet/{id}
+    """
+    stored_pet_json = pet_endpoints.my_stored_pet_json
+    pet_by_id_response = pet_endpoints.find_pet_by_id()
+    assert stored_pet_json[0] == pet_by_id_response.json()
+
+
 def test_compare_add_a_new_pet_and_finding_pet_verify_json():
     """
     Test: Compare jsons from add_a_new_pet and finding_pet methods
@@ -39,10 +51,9 @@ def test_compare_add_a_new_pet_and_finding_pet_verify_json():
     post_endpoint: https://petstore.swagger.io/v2/pet
     get_endpoint: https://petstore.swagger.io/v2/pet/{id}
     """
-    stored_pet_json = pet_endpoints.my_stored_pet_json
+    pet_json = pet_endpoints.add_new_pet()[3]
     pet_by_id_response = pet_endpoints.find_pet_by_id()
-
-    assert stored_pet_json[0] == pet_by_id_response.json()
+    assert pet_json == pet_by_id_response.json()
 
 
 def test_finding_pet_by_status_status_code():
