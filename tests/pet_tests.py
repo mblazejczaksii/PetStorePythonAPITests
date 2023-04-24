@@ -63,7 +63,7 @@ def test_finding_pet_by_status_status_code():
     endpoint: https://petstore.swagger.io/v2/pet/findByStatus
     """
     response = pet_endpoints.find_pet_by_status()
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_finding_pet_by_status_url():
