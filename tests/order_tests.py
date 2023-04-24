@@ -19,7 +19,7 @@ def test_find_purchase_order_by_id_verify_status_code():
     endpoint: http://petstore.swagger.io/v2/store/order/{orderId}
     """
     response = pet_endpoints.purchase_order_by_id()[0]
-    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.status_code == HTTPStatus.OK
 
 
 def test_find_purchase_order_by_id_verify_jsons_equality():
@@ -41,7 +41,7 @@ def test_find_purchase_order_by_id_invalid_order_id_verify_status_code():
     endpoint: http://petstore.swagger.io/v2/store/order/{orderId}
     """
     response = pet_endpoints.purchase_order_with_invalid_id()
-    assert response.status_code == HTTPStatus.OK
+    assert response.status_code == HTTPStatus.NOT_FOUND
 
 
 def test_delete_purchase_order_by_id_verify_status_code():
