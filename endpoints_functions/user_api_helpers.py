@@ -12,7 +12,7 @@ new_user_body = {
 }
 
 
-## Endpoints functions ##
+# Endpoints functions
 def post_create_user(user):
     response = requests.post(request_common_url, json=user)
     return response
